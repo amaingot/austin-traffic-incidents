@@ -42,6 +42,7 @@
     "aws-appsync-react": "^1.2.7",
     "graphql": "^14.2.1",
     "graphql-tag": "^2.10.1",
+    "jest-environment-jsdom": "^24.7.1",
     "react": "^16.8.6",
     "react-apollo": "^2.5.5",
     "react-dom": "^16.8.6"
@@ -56,6 +57,8 @@
     "@babel/preset-env": "^7.4.3",
     "@babel/preset-react": "^7.0.0",
     "@babel/preset-typescript": "^7.3.3",
+    "@babel/types": "^7.4.4",
+    "@hot-loader/react-dom": "^16.8.6",
     "@types/classnames": "^2.2.7",
     "@types/jest": "^24.0.11",
     "@types/react": "^16.8.14",
@@ -66,6 +69,7 @@
     "jest-junit": "^6.3.0",
     "prettier": "^1.17.0",
     "react-hot-loader": "^4.8.4",
+    "react-testing-library": "^7.0.0",
     "source-map-loader": "^0.2.4",
     "ts-jest": "^24.0.2",
     "tslint": "^5.16.0",
@@ -77,5 +81,12 @@
     "webpack": "^4.30.0",
     "webpack-cli": "^3.3.1",
     "webpack-dev-server": "^3.3.1"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "moduleNameMapper": {
+      "^src/(.*)$": "<rootDir>/src/$1"
+    },
+    "testEnvironment": "jsdom"
   }
 }

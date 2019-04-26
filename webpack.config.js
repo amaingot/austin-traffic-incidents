@@ -14,7 +14,26 @@ module.exports = env => {
         {
           test: /\.(ts|js)x?$/,
           exclude: /node_modules/,
-          loader: "babel-loader"
+          use: {
+            loader: "babel-loader",
+            options: {
+              presets: [
+                [
+                  "@babel/preset-env",
+                  {
+                    useBuiltIns: false
+                  }
+                ],
+                "@babel/typescript",
+                "@babel/react"
+              ],
+              plugins: [
+                "@babel/proposal-class-properties",
+                "@babel/proposal-object-rest-spread",
+                "react-hot-loader/babel"
+              ]
+            }
+          }
         }
       ]
     },
@@ -46,8 +65,16 @@ module.exports = env => {
   }
 
   if (env.dev) {
+    const { resolve, ...otherConfig } = baseConfig;
     return {
-      ...baseConfig,
+      ...otherConfig,
+      resolve: {
+        extensions: resolve.extensions,
+        alias: {
+          "react-dom": "@hot-loader/react-dom",
+          ...resolve.alias
+        }
+      },
       mode: "development",
       devtool: "source-map",
       devServer: {

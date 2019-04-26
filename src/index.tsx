@@ -1,11 +1,13 @@
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
+
 import Amplify, { Auth } from 'aws-amplify';
 import AWSAppSyncClient, { AUTH_TYPE } from 'aws-appsync';
 import { Rehydrated } from 'aws-appsync-react';
-import * as React from 'react';
 import { ApolloProvider } from 'react-apollo';
-import * as ReactDOM from 'react-dom';
 
-import awsconfig from 'src/aws-exports.js';
+import App from 'src/App';
+import awsconfig from 'src/aws-exports';
 
 Amplify.configure(awsconfig);
 
@@ -23,7 +25,7 @@ const client = new AWSAppSyncClient({
 ReactDOM.render(
   <ApolloProvider client={client as any}>
     <Rehydrated>
-      <div>This works.</div>
+      <App />
     </Rehydrated>
   </ApolloProvider>,
   document.getElementById('root')
