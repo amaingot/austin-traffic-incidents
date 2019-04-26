@@ -1,0 +1,41 @@
+type TrafficIncident @model
+  @auth( rules: [{ allow: groups, groups: ["Admin"] }])
+{
+  id: ID!
+  address: String!
+  latitude: Float!
+  longitude: Float!
+  published: String!
+  createdAt: String!
+  issueReported: String
+  trafficReportId: String
+  status: String
+  updatedAt: String!
+  apiCall: APICall @connection(name: "TrafficIncidentAPICalls")
+}
+
+type APICall @model
+  @auth( rules: [{ allow: groups, groups: ["Admin"] }])
+{
+  id: ID!
+  start: String!
+  status: APICallStatus!
+  error: String
+  end: String
+  incidents: [TrafficIncident] @connection(name: "TrafficIncidentAPICalls")
+  fetchedDateRange: DateRange
+  callMetadata: String
+  responseMetatadata: String
+}
+
+type DateRange {
+  start: String!
+  end: String!
+}
+
+enum APICallStatus {
+  STARTED
+  PROCESSING
+  FINISHED
+  ERROR
+}

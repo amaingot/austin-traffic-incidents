@@ -1,0 +1,23 @@
+{
+  "name": "austin-traffic-incidents",
+  "version": "1.0.0",
+  "description": "Real time Austin, Texas traffic incidents",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amaingot/austin-traffic-incidents.git"
+  },
+  "keywords": [
+    "react",
+    "graphql"
+  ],
+  "author": "Alex Maingot (alex@maingot.us)",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/amaingot/austin-traffic-incidents/issues"
+  },
+  "homepage": "https://github.com/amaingot/austin-traffic-incidents#readme"
+}

@@ -1,0 +1,22 @@
+{
+    "prod": {
+        "awscloudformation": {
+            "AuthRoleName": "crash-20190426124620-authRole",
+            "UnauthRoleArn": "arn:aws:iam::140978229662:role/crash-20190426124620-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::140978229662:role/crash-20190426124620-authRole",
+            "Region": "us-east-1",
+            "DeploymentBucketName": "crash-20190426124620-deployment",
+            "UnauthRoleName": "crash-20190426124620-unauthRole",
+            "StackName": "crash-20190426124620",
+            "StackId": "arn:aws:cloudformation:us-east-1:140978229662:stack/crash-20190426124620/34434310-684b-11e9-a293-0e89924d3e24"
+        },
+        "categories": {
+            "auth": {
+                "cognitoCrash": {
+                    "facebookAppId": "zzz",
+                    "googleClientId": "zzz"
+                }
+            }
+        }
+    }
+}
