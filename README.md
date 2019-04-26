@@ -18,7 +18,7 @@
 
 ## Data Source
 
-The traffic incident data comes from the City of Austin's data portal. The data set used is the "Real-Time Traffic Incident Reports". The dataset is updated every 5 minutes. Each row in the data set is a "traffic incident" and there are just over 105k rows.
+The traffic incident data comes from the City of Austin's data portal. The data set used is the [Real-Time Traffic Incident Reports](https://dev.socrata.com/foundry/data.austintexas.gov/r3af-2r8x). The dataset is updated every 5 minutes. Each row in the data set is a "traffic incident" and there are just over 105k rows.
 
 | Column Name                       | Data Type | Example                                               |
 |-----------------------------------|-----------|-------------------------------------------------------|
