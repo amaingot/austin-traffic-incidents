@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/austin-traffic-incidents
     docker:
-      - image: circleci/node:8.10
+      - image: circleci/node:8.11.0
     steps:
       - checkout
 
@@ -33,7 +33,7 @@ jobs:
             JEST_JUNIT_OUTPUT: "reports/test-coverage.xml"
 
       - run:
-          name: Set up AWS
+          name: Set up AWS credentials and Amplify environment
           command: yarn aws:creds && yarn aws:init
 
       - run:
@@ -62,7 +62,7 @@ jobs:
   deploy-fe-env:
     working_directory: ~/austin-traffic-incidents
     docker:
-      - image: circleci/node:8.10
+      - image: circleci/node:8.11.0
     steps:
       - checkout
       - attach_workspace:
@@ -80,7 +80,7 @@ jobs:
   deploy-fe-prod:
     working_directory: ~/austin-traffic-incidents
     docker:
-      - image: circleci/node:8.10
+      - image: circleci/node:8.11.0
     steps:
       - checkout
       - attach_workspace:
