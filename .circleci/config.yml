@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/austin-traffic-incidents
     docker:
-      - image: circleci/node:8.11.0
+      - image: circleci/node:8.11
     steps:
       - checkout
 
@@ -62,7 +62,7 @@ jobs:
   deploy-fe-env:
     working_directory: ~/austin-traffic-incidents
     docker:
-      - image: circleci/node:8.11.0
+      - image: circleci/node:8.11
     steps:
       - checkout
       - attach_workspace:
@@ -80,7 +80,7 @@ jobs:
   deploy-fe-prod:
     working_directory: ~/austin-traffic-incidents
     docker:
-      - image: circleci/node:8.11.0
+      - image: circleci/node:8.11
     steps:
       - checkout
       - attach_workspace:
