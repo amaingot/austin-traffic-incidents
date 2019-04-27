@@ -40,6 +40,10 @@ jobs:
           name: Build Bundle for Distribution
           command: yarn build
 
+      - run:
+          name: Run Danger
+          command: yarn danger:ci
+
       - save_cache:
           paths:
             - node_modules
@@ -68,14 +72,8 @@ jobs:
       - attach_workspace:
           at: ./
       - run:
-          name: Install awscli
-          command: sudo apt-get install awscli && aws configure set preview.cloudfront true
-      - run:
-          name: Deploy bundle to S3
-          command: aws s3 sync build/ s3://${S3_BUCKET}/${CIRCLE_BRANCH} --acl public-read
-      - run:
-          name: Purge cache for environment bundle
-          command: aws cloudfront create-invalidation --invalidation-batch file://invbatch.json --distribution-id "$CDN_DIST_ID"
+          name: Deploy UI Bundle
+          command: yarn aws:deploy:ui
 
   deploy-fe-prod:
     working_directory: ~/austin-traffic-incidents
@@ -86,17 +84,8 @@ jobs:
       - attach_workspace:
           at: ./
       - run:
-          name: Install awscli
-          command: sudo apt-get install awscli && aws configure set preview.cloudfront true
-      - run:
-          name: Deploy bundle to S3
-          command: aws s3 sync build/ s3://${S3_BUCKET}/production --acl public-read
-      - run:
-          name: Deploy index.html
-          command: aws s3 sync static/ s3://${S3_BUCKET} --acl public-read
-      - run:
-          name: Purge cache for everything
-          command: aws cloudfront create-invalidation --distribution-id ${CDN_DIST_ID} --paths "/*"
+          name: Deploy UI Bundle
+          command: yarn aws:deploy:ui
 
 workflows:
   version: 2

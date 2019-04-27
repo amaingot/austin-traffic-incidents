@@ -2388,7 +2388,7 @@ aws-sdk@2.329.0:
     uuid "3.1.0"
     xml2js "0.4.19"
 
-aws-sdk@^2.250.1, aws-sdk@^2.391.0:
+aws-sdk@^2.250.1, aws-sdk@^2.391.0, aws-sdk@^2.444.0:
   version "2.444.0"
   resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.444.0.tgz#7c4bb613636796bf4ee5888ea376bca247af51d8"
   dependencies:
