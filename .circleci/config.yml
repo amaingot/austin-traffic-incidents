@@ -49,10 +49,6 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "yarn.lock" }}
 
-      - run:
-          name: Clean up workspace
-          command: rm -rf node_modules
-
       - store_test_results:
           path: reports/
       - store_artifacts:
