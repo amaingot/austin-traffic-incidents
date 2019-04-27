@@ -1,127 +1,116 @@
 version: 2
 jobs:
-    build:
-        working_directory: ~/austin-traffic-incidents
-        docker:
-            - image: circleci/node:10
-        steps:
-            - checkout
+  build:
+    working_directory: ~/austin-traffic-incidents
+    docker:
+      - image: circleci/node:8.11
+    steps:
+      - checkout
 
-            - restore_cache:
-                keys:
-                    - v1-dependencies-{{ checksum "yarn.lock" }}
-                    - v1-dependencies
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "yarn.lock" }}
+            - v1-dependencies
 
-            - run: 
-                name: Installing All Packages
-                command: yarn
+      - run:
+          name: Installing All Packages
+          command: yarn
 
-            - run:
-                name: TypeScript Linter
-                command: mkdir reports && yarn lint:ci
+      - run:
+          name: TypeScript Linter
+          command: mkdir reports && yarn lint:ci
 
-            - run:
-                name: Running tests
-                command: yarn test:ci
-                environment:
-                    JEST_JUNIT_OUTPUT: "reports/test-results.xml"
+      - run:
+          name: Running tests
+          command: yarn test:ci
+          environment:
+            JEST_JUNIT_OUTPUT: "reports/test-results.xml"
 
-            - run:
-                name: Running test coverage
-                command: yarn test:coverage:ci
-                environment:
-                    JEST_JUNIT_OUTPUT: "reports/test-coverage.xml"
+      - run:
+          name: Running test coverage
+          command: yarn test:coverage:ci
+          environment:
+            JEST_JUNIT_OUTPUT: "reports/test-coverage.xml"
 
-            - run:
-                name: Build Bundle for Distribution
-                command: yarn build
+      - run:
+          name: Set up AWS credentials and Amplify environment
+          command: yarn aws:creds && yarn aws:init
 
-            - save_cache:
-                paths:
-                    - node_modules
-                key: v1-dependencies-{{ checksum "yarn.lock" }}
+      - run:
+          name: Build Bundle for Distribution
+          command: yarn build
 
-            - run:
-                name: Clean up workspace
-                command: rm -rf node_modules
-            
-            - store_test_results:
-                path: reports/
-            - store_artifacts:
-                path: reports/
+      - run:
+          name: Run Danger
+          command: yarn danger:ci
 
-            - persist_to_workspace:
-                root: ./
-                paths:
-                    - ./
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "yarn.lock" }}
 
-    deploy-fe-env:
-        working_directory: ~/austin-traffic-incidents
-        docker:
-            - image: circleci/python:2.7-jessie
-        steps:
-            - checkout
-            - attach_workspace:
-                at: ./
-            - run: 
-                name: Install awscli
-                command: sudo pip install awscli
-            - run: 
-                name: Deploy bundle to S3
-                command: aws s3 sync build/ s3://${S3_BUCKET}/${CIRCLE_BRANCH} --acl public-read
-            - run:
-                name: Purge cache for environment bundle
-                command: aws cloudfront create-invalidation --distribution-id ${CDN_DIST_ID} --paths "/${CIRCLE_BRANCH}/*"
+      - store_test_results:
+          path: reports/
+      - store_artifacts:
+          path: reports/
 
-    deploy-fe-prod:
-        working_directory: ~/austin-traffic-incidents
-        docker:
-            - image: circleci/python:2.7-jessie
-        steps:
-            - checkout
-            - attach_workspace:
-                at: ./
-            - run: 
-                name: Install awscli
-                command: sudo pip install awscli
-            - run: 
-                name: Deploy bundle to S3
-                command: aws s3 sync build/ s3://${S3_BUCKET}/production --acl public-read
-            - run: 
-                name: Deploy index.html
-                command: aws s3 sync static/ s3://${S3_BUCKET} --acl public-read
-            - run:
-                name: Purge cache for everything
-                command: aws cloudfront create-invalidation --distribution-id ${CDN_DIST_ID} --paths "/*"
+      - persist_to_workspace:
+          root: ./
+          paths:
+            - ./
+
+  deploy-fe-env:
+    working_directory: ~/austin-traffic-incidents
+    docker:
+      - image: circleci/node:8.11
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ./
+      - run:
+          name: Deploy UI Bundle
+          command: yarn aws:deploy:ui
+
+  deploy-fe-prod:
+    working_directory: ~/austin-traffic-incidents
+    docker:
+      - image: circleci/node:8.11
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ./
+      - run:
+          name: Deploy UI Bundle
+          command: yarn aws:deploy:ui
 
 workflows:
-    version: 2
-    austin-traffic-incident:
-        jobs:
-            - build:
-                context: maingot
-                filters:
-                    branches:
-                        only: /.*/
-                    tags:
-                        only: /.*/
+  version: 2
+  austin-traffic-incident:
+    jobs:
+      - build:
+          context: maingot
+          filters:
+            branches:
+              only: /.*/
+            tags:
+              only: /.*/
 
-            - deploy-fe-env:
-                context: maingot
-                requires:
-                    - build
-                filters:
-                    branches:
-                        only: /^(?!production).*$/
-                    tags:
-                        ignore: /.*/
+      - deploy-fe-env:
+          context: maingot
+          requires:
+            - build
+          filters:
+            branches:
+              only: /^(?!production).*$/
+            tags:
+              ignore: /.*/
 
-            - deploy-fe-prod:
-                context: maingot
-                requires:
-                    - build
-                filters:
-                    branches:
-                        ignore: /.*/
-                    tags:
-                        only: /^(v\d+)\.\d+.(\d+)$/
+      - deploy-fe-prod:
+          context: maingot
+          requires:
+            - build
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^(v\d+)\.\d+.(\d+)$/

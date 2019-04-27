@@ -4,8 +4,14 @@
   "description": "Real time Austin, Texas traffic incidents",
   "main": "index.js",
   "scripts": {
+    "aws:creds": "yarn tsc scripts/awsCreds.ts && node scripts/awsCreds.js && yarn fresh:scripts",
+    "aws:init": "yarn tsc scripts/awsInit.ts && node scripts/awsInit.js && yarn fresh:scripts",
+    "aws:deploy:ui": "yarn tsc scripts/deployUi.ts && node scripts/deployUi.js && yarn fresh:scripts",
     "build": "./node_modules/.bin/webpack --env.prod",
+    "danger:ci": "./node_modules/.bin/danger ci --dangerfile=scripts/dangerfile.ts",
+    "danger": "./node_modules/.bin/danger local --dangerfile=scripts/dangerfile.ts",
     "fresh": "rm -rf node_modules build reports coverage",
+    "fresh:scripts": "rm -rf scripts/*.js",
     "lint:ci": "yarn lint --format junit --out reports/tslint.xml",
     "lint:fix": "yarn lint --fix",
     "lint": "./node_modules/.bin/tslint --project '.'",
@@ -15,7 +21,8 @@
     "test:watch": "yarn test --watch",
     "test": "./node_modules/.bin/jest",
     "check": "yarn lint && yarn test:coverage",
-    "start": "./node_modules/.bin/webpack-dev-server --env.dev --hot"
+    "start": "./node_modules/.bin/webpack-dev-server --env.dev --hot",
+    "tsc": "./node_modules/.bin/tsc --lib esnext,dom"
   },
   "repository": {
     "type": "git",
@@ -42,7 +49,6 @@
     "aws-appsync-react": "^1.2.7",
     "graphql": "^14.2.1",
     "graphql-tag": "^2.10.1",
-    "jest-environment-jsdom": "^24.7.1",
     "react": "^16.8.6",
     "react-apollo": "^2.5.5",
     "react-dom": "^16.8.6"
@@ -64,8 +70,12 @@
     "@types/react": "^16.8.14",
     "@types/react-dom": "^16.8.4",
     "@types/webpack": "^4.4.27",
+    "aws-sdk": "^2.444.0",
     "babel-loader": "^8.0.5",
+    "danger": "^7.1.3",
+    "immutable": "^4.0.0-rc.12",
     "jest": "^24.7.1",
+    "jest-environment-jsdom": "^24.7.1",
     "jest-junit": "^6.3.0",
     "prettier": "^1.17.0",
     "react-hot-loader": "^4.8.4",
