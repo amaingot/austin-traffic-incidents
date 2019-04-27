@@ -69,7 +69,7 @@ jobs:
           at: ./
       - run:
           name: Install awscli
-          command: sudo apt-get install awscli
+          command: sudo apt-get install awscli && aws configure set preview.cloudfront true
       - run:
           name: Deploy bundle to S3
           command: aws s3 sync build/ s3://${S3_BUCKET}/${CIRCLE_BRANCH} --acl public-read
@@ -87,7 +87,7 @@ jobs:
           at: ./
       - run:
           name: Install awscli
-          command: sudo apt-get install awscli
+          command: sudo apt-get install awscli && aws configure set preview.cloudfront true
       - run:
           name: Deploy bundle to S3
           command: aws s3 sync build/ s3://${S3_BUCKET}/production --acl public-read
