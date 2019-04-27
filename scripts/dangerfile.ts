@@ -20,9 +20,9 @@ function runCheckModified() {
 
 function runPackageJsonCheck() {
   const packageChanged = fromJS(danger.git.modified_files).contains('package.json');
-  const lockfileChanged = fromJS(danger.git.modified_files).contains('package-lock.json');
+  const lockfileChanged = fromJS(danger.git.modified_files).contains('yarn.lock');
   if (packageChanged && !lockfileChanged) {
-    const packageJsonMessage = 'Changes were made to package.json, but not to package-lock.json';
+    const packageJsonMessage = 'Changes were made to package.json, but not to yarn.lock';
     const packageJsonIdea = 'Perhaps you need to run `npm install`?';
     warn(`${packageJsonMessage} - <i>${packageJsonIdea}</i>`);
   }
