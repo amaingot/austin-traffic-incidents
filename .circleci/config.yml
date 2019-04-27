@@ -69,7 +69,7 @@ jobs:
           at: ./
       - run:
           name: Install awscli
-          command: sudo pip install awscli
+          command: sudo apt-get update; sudo apt-get install awscli
       - run:
           name: Deploy bundle to S3
           command: aws s3 sync build/ s3://${S3_BUCKET}/${CIRCLE_BRANCH} --acl public-read
@@ -86,8 +86,8 @@ jobs:
       - attach_workspace:
           at: ./
       - run:
-          name: Install s3cmd & awscli
-          command: sudo apt-get update; sudo apt-get install s3cmd; sudo apt-get install awscli
+          name: Install awscli
+          command: sudo apt-get update; sudo apt-get install awscli
       - run:
           name: Deploy bundle to S3
           command: aws s3 sync build/ s3://${S3_BUCKET}/production --acl public-read
