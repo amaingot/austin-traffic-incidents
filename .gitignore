@@ -73,3 +73,6 @@ awsconfiguration.json
 
 # localcerts
 certs/
+
+# scripts in javascript
+scripts/*.js
