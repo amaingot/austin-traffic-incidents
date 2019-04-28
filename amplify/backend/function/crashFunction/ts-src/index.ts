@@ -19,9 +19,7 @@ export const handler: Handler = async (
     region,
   });
 
-  client.getSecretValue({ SecretId: secretName }, (err, data) => {
-    console.log('ERROR', err);
-    console.log('DATA', data);
+  const response = client.getSecretValue({ SecretId: secretName }, (err, data) => {
     if (err) {
       if (err.code === 'DecryptionFailureException') {
         // Secrets Manager can't decrypt the protected secret text using the provided KMS key.
@@ -48,8 +46,11 @@ export const handler: Handler = async (
       // Decrypts secret using the associated KMS CMK.
       // Depending on whether the secret is a string or binary, one of these fields will be populated.
       secret = data.SecretString || '{}';
-      console.log(secret);
-      callback();
     }
   });
+
+  await response.promise();
+
+  console.log(secret);
+  callback();
 };
