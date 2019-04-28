@@ -4,6 +4,9 @@
 	"Parameters": {
 		"env": {
 			"Type": "String"
+		},
+		"AppSyncApiEndpoint": {
+			"Type": "String"
 		}
 	},
 	"Conditions": {
@@ -47,6 +50,9 @@
 					"Variables": {
 						"ENV": {
 							"Ref": "env"
+						},
+						"API_ENDPOINT": {
+							"Ref": "AppSyncApiEndpoint"
 						}
 					}
 				},
@@ -61,7 +67,7 @@
 				"MemorySize": "256",
 				"Code": {
 					"S3Bucket": "crash-20190426124620-deployment",
-					"S3Key": "amplify-builds/crashFunction-1556473248-latest-build.zip"
+					"S3Key": "amplify-builds/crashFunction-1556477469-latest-build.zip"
 				}
 			}
 		},

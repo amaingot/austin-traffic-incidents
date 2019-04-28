@@ -25,7 +25,12 @@
 			"service": "Lambda",
 			"providerPlugin": "awscloudformation",
 			"build": true,
-			"dependsOn": []
+			"dependsOn": [
+				{
+					"category": "api",
+					"resourceName": "crashApi"
+				}
+			]
 		}
 	}
 }

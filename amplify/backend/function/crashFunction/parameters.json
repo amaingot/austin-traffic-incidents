@@ -1,0 +1,5 @@
+{
+  "AppSyncApiEndpoint": {
+    "Fn::GetAtt": ["apicrashApi", "Outputs.GraphQLAPIEndpointOutput"]
+  }
+}
