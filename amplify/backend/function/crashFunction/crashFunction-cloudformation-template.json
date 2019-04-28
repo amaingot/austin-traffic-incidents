@@ -61,7 +61,7 @@
 				"MemorySize": "256",
 				"Code": {
 					"S3Bucket": "crash-20190426124620-deployment",
-					"S3Key": "amplify-builds/crashFunction-1556431883-latest-build.zip"
+					"S3Key": "amplify-builds/crashFunction-1556432466-latest-build.zip"
 				}
 			}
 		},
