@@ -1,17 +1,16 @@
 /* tslint:disable no-console */
 import { Callback, Context, Handler } from 'aws-lambda';
 import getApiKey from './getApiKey';
+import queryAPI from './queryApi';
 
 export const handler: Handler = async (
   event: any,
   context: Context,
   callback: Callback
 ): Promise<void> => {
-  console.log('Event: ', event);
-  console.log('Context: ', context);
+  const token = await getApiKey();
 
-  const secret = await getApiKey();
-
-  console.log(secret);
+  const crashData = await queryAPI({ apiKey: token.API_TOKEN });
+  console.log(crashData);
   callback();
 };
