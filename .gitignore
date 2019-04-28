@@ -76,3 +76,6 @@ certs/
 
 # scripts in javascript
 scripts/*.js
+
+# amplify function in javascript
+amplify/backend/function/*/src/*.js

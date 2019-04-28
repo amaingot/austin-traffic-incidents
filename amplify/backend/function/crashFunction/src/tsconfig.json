@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "es2017",
+    "lib": ["dom", "esnext"],
+    "module": "commonjs",
+    "plugins": [
+      {
+        "name": "typescript-tslint-plugin",
+        "configFile": "../../../../../tslint.json"
+      }
+    ]
+  },
+  "exclude": ["node_modules/**", "build/**"]
+}
