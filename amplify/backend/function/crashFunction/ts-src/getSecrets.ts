@@ -3,11 +3,13 @@ import * as AWS from 'aws-sdk';
 interface AustinDataApiKey {
   API_TOKEN: string;
   API_SECRET: string;
+  ACCOUNT_PASSWORD: string;
+  ACCOUNT_USERNAME: string;
 }
 
-const getApiKey = async (): Promise<AustinDataApiKey> => {
+const getSecrets = async (): Promise<AustinDataApiKey> => {
   const region = 'us-east-1';
-  const secretName = 'prod/AustinData/AustinTrafficIncidentsApp';
+  const secretName = 'prod/CrashFunctionSecrets';
   let secret: string = '{}';
 
   // Create a Secrets Manager client
@@ -47,9 +49,9 @@ const getApiKey = async (): Promise<AustinDataApiKey> => {
 
   await response.promise();
 
-  const parsedSecret = JSON.parse(secret);
+  const parsedSecret: AustinDataApiKey = JSON.parse(secret);
 
-  return parsedSecret as AustinDataApiKey;
+  return parsedSecret;
 };
 
-export default getApiKey;
+export default getSecrets;

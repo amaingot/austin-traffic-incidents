@@ -241,6 +241,8 @@ Resources:
       GenerateSecret: !Ref userpoolClientGenerateSecret
       RefreshTokenValidity: !Ref userpoolClientRefreshTokenValidity
       UserPoolId: !Ref UserPool
+      ExplicitAuthFlows:
+        - 'ADMIN_NO_SRP_AUTH'
     DependsOn: UserPool
   # BEGIN USER POOL LAMBDA RESOURCES
   UserPoolClientRole:
@@ -539,6 +541,8 @@ Outputs :
     Description:  Id for the user pool
   UserPoolName:
     Value: !Ref userPoolName
+  UserPoolArn:
+    Value: !GetAtt UserPool.Arn
   AppClientIDWeb:
     Value: !Ref 'UserPoolClientWeb'
     Description: The user pool app client id for web

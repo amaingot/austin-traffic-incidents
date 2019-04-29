@@ -11,6 +11,7 @@
   "dependencies": {
     "@types/aws-lambda": "^8.10.24",
     "@types/moment-timezone": "^0.5.12",
+    "amazon-cognito-identity-js-node": "^0.0.3",
     "aws-lambda": "^0.1.2",
     "aws-sdk": "^2.444.0",
     "axios": "^0.18.0",

@@ -17,7 +17,7 @@ interface TrafficIncident {
   traffic_report_status_date_time: string;
 }
 
-type TrafficIncidentList = TrafficIncident[];
+export type TrafficIncidentList = TrafficIncident[];
 
 const queryAPI = async (params: QueryParams): Promise<TrafficIncidentList> => {
   const time = moment()

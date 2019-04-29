@@ -1,5 +1,14 @@
 {
   "AppSyncApiEndpoint": {
     "Fn::GetAtt": ["apicrashApi", "Outputs.GraphQLAPIEndpointOutput"]
+  },
+  "AuthCognitoUserPoolId": {
+    "Fn::GetAtt": ["authcognitoCrash", "Outputs.UserPoolId"]
+  },
+  "AuthCognitoAppClientID": {
+    "Fn::GetAtt": ["authcognitoCrash", "Outputs.AppClientID"]
+  },
+  "AuthCognitoUserPoolArn": {
+    "Fn::GetAtt": ["authcognitoCrash", "Outputs.UserPoolArn"]
   }
 }
