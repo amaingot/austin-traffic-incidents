@@ -19,7 +19,7 @@
     "test:coverage": "yarn test --coverage --no-cache --maxWorkers=6",
     "test:ci": "yarn test --ci --reporters=default --reporters=jest-junit",
     "test:watch": "yarn test --watch",
-    "run:lambda": "amplify function invoke crashFunction",
+    "run:lambda": "amplify function invoke austinTrafficDataFetcherFunction",
     "test": "./node_modules/.bin/jest",
     "check": "yarn lint && yarn test:coverage",
     "start": "./node_modules/.bin/webpack-dev-server --env.dev --hot",
