@@ -60,6 +60,15 @@ typings/
 # next.js build output
 .next
 
+# localcerts
+certs/
+
+# scripts in javascript
+scripts/*.js
+
+# amplify function in javascript
+amplify/backend/function/*/src/*.js
+
 #amplify
 amplify/\#current-cloud-backend
 amplify/.config/local-*
@@ -70,12 +79,3 @@ dist/
 node_modules/
 aws-exports.js
 awsconfiguration.json
-
-# localcerts
-certs/
-
-# scripts in javascript
-scripts/*.js
-
-# amplify function in javascript
-amplify/backend/function/*/src/*.js
