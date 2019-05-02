@@ -1,0 +1,10 @@
+{
+    "AppSyncApiName": "traffic",
+    "DynamoDBBillingMode": "PAY_PER_REQUEST",
+    "AuthCognitoUserPoolId": {
+        "Fn::GetAtt": [
+            "authcognitoTraffic",
+            "Outputs.UserPoolId"
+        ]
+    }
+}

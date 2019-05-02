@@ -1,0 +1,21 @@
+{
+    "prod": {
+        "awscloudformation": {
+            "AuthRoleName": "traffic-prod-20190502130036-authRole",
+            "UnauthRoleArn": "arn:aws:iam::140978229662:role/traffic-prod-20190502130036-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::140978229662:role/traffic-prod-20190502130036-authRole",
+            "Region": "us-east-1",
+            "DeploymentBucketName": "traffic-prod-20190502130036-deployment",
+            "UnauthRoleName": "traffic-prod-20190502130036-unauthRole",
+            "StackName": "traffic-prod-20190502130036",
+            "StackId": "arn:aws:cloudformation:us-east-1:140978229662:stack/traffic-prod-20190502130036/3050a8c0-6d04-11e9-a3e7-1230783fe8ac"
+        },
+        "categories": {
+            "auth": {
+                "cognitoTraffic": {
+                    "hostedUIProviderCreds": "[]"
+                }
+            }
+        }
+    }
+}
