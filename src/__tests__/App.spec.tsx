@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { render } from 'react-testing-library';
 
-import App from 'src/App';
+import Main from 'src/Main';
 
-test('App should render', () => {
-  render(<App />);
+test('Main should render', () => {
+  render(<Main />);
 });
