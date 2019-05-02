@@ -10,6 +10,9 @@
     "build": "./node_modules/.bin/webpack --env.prod",
     "danger:ci": "./node_modules/.bin/danger ci --dangerfile=scripts/dangerfile.ts",
     "danger": "./node_modules/.bin/danger local --dangerfile=scripts/dangerfile.ts",
+    "f:build": "yarn --cwd amplify/backend/function/austinIncidents/ts-src build",
+    "f:invoke": "printf 'index.js\nhandler' | amplify function invoke austinIncidents",
+    "f:dev": "yarn --cwd amplify/backend/function/austinIncidents/ts-src dev",
     "fresh": "rm -rf node_modules build reports coverage",
     "fresh:scripts": "rm -rf scripts/*.js",
     "lint:ci": "yarn lint --format junit --out reports/tslint.xml",
@@ -19,7 +22,6 @@
     "test:coverage": "yarn test --coverage --no-cache --maxWorkers=6",
     "test:ci": "yarn test --ci --reporters=default --reporters=jest-junit",
     "test:watch": "yarn test --watch",
-    "run:lambda": "amplify function invoke austinTrafficDataFetcherFunction",
     "test": "./node_modules/.bin/jest",
     "check": "yarn lint && yarn test:coverage",
     "start": "./node_modules/.bin/webpack-dev-server --env.dev --hot"

@@ -13,23 +13,23 @@ const awsCreds = {
 const amplifyConfigPath = '~/.amplify';
 const amplifyConfigFile = `${amplifyConfigPath}/configcreds`;
 
-run(`mkdir ${amplifyConfigPath}`);
-run(`touch ${amplifyConfigFile}`);
-run(`echo ${stringify(awsCreds)} > ${amplifyConfigFile}`);
+run(`mkdir ${amplifyConfigPath}`, `Making the amplify config directory: ${amplifyConfigPath}`);
+run(`touch ${amplifyConfigFile}`, `Creating the amplify config file: ${amplifyConfigFile}`);
+run(`echo ${stringify(awsCreds)} > ${amplifyConfigFile}`, 'Writing config to amplify config file');
 
-run('mkdir ~/.aws');
+run('mkdir ~/.aws', 'Making the aws config folder');
 
 const awsCredFile = `[default]
 aws_access_key_id=${awsAccessKeyId}
 aws_secret_access_key=${secretAccessKey}
 `;
 
-run('touch ~/.aws/credentials');
-run(`echo "${awsCredFile}" > ~/.aws/credentials`);
+run('touch ~/.aws/credentials', 'Creating the aws credentials file');
+run(`echo "${awsCredFile}" > ~/.aws/credentials`, 'Writing aws creds to the file');
 
 const awsConfigFile = `[default]
 region=${region}
 `;
 
-run('touch ~/.aws/config');
-run(`echo "${awsConfigFile}" > ~/.aws/config`);
+run('touch ~/.aws/config', 'Creating the aws config file');
+run(`echo "${awsConfigFile}" > ~/.aws/config`, 'Writing aws config to the file');

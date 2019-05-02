@@ -13,5 +13,8 @@ const providers = JSON.stringify({
 });
 
 run(
-  `amplify init --amplify ${JSON.stringify(amplify)} --providers ${JSON.stringify(providers)} --yes`
+  `yarn amplify init --amplify ${JSON.stringify(amplify)} --providers ${JSON.stringify(
+    providers
+  )} --yes`,
+  'Initializing amplify environment'
 );

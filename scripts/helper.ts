@@ -6,13 +6,13 @@ import { basename } from 'path';
 
 export const stringify = (o: object) => JSON.stringify(JSON.stringify(o));
 
-export const run = (s: string) => {
+export const run = (s: string, c: string = '') => {
   try {
-    console.log(`Running:\n${s}`);
+    console.log(`Running:\n${c}`);
     execSync(s);
     console.log('Success!\n');
   } catch (e) {
-    console.error(`Failed!\n${e}\n`);
+    console.error(`Failed!\n${c}\n`);
   }
 };
 
