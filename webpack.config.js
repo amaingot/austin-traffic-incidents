@@ -34,6 +34,33 @@ module.exports = env => {
               ]
             }
           }
+        },
+        {
+          test: /\.(less|css|scss)$/,
+          use: [
+            {
+              loader: "style-loader" // creates style nodes from JS strings
+            },
+            {
+              loader: "css-loader" // translates CSS into CommonJS
+            },
+            {
+              loader: "less-loader",
+              options: { javascriptEnabled: true } // compiles Less to CSS
+            }
+          ]
+        },
+        {
+          test: /\.svg$/,
+          loader: "svg-inline-loader"
+        },
+        {
+          test: /\.(png|jpg|jpeg|gif)$/,
+          use: [
+            {
+              loader: "file-loader"
+            }
+          ]
         }
       ]
     },
