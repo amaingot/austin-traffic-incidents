@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
 import Amplify, { Auth } from 'aws-amplify';
+import { withAuthenticator } from 'aws-amplify-react';
 import AWSAppSyncClient, { AUTH_TYPE } from 'aws-appsync';
 import { Rehydrated } from 'aws-appsync-react';
 import { ApolloProvider } from 'react-apollo';
@@ -22,10 +23,12 @@ const client = new AWSAppSyncClient({
   complexObjectsCredentials: async () => Auth.currentCredentials(),
 });
 
+const AuthedMain = withAuthenticator(Main);
+
 ReactDOM.render(
   <ApolloProvider client={client as any}>
     <Rehydrated>
-      <Main />
+      <AuthedMain />
     </Rehydrated>
   </ApolloProvider>,
   document.getElementById('root')
