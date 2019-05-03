@@ -1,0 +1,13 @@
+{
+  "SecretName": "prod/CrashFunctionSecrets",
+  "SecretNameSuffix": "-G36wXX",
+  "AuthCognitoUserPoolId": {
+    "Fn::GetAtt": ["authcognitoTraffic", "Outputs.UserPoolId"]
+  },
+  "AuthCognitoClientId": {
+    "Fn::GetAtt": ["authcognitoTraffic", "Outputs.AppClientIDWeb"]
+  },
+  "GraphQLEndpoint": {
+    "Fn::GetAtt": ["apitraffic", "Outputs.GraphQLAPIEndpointOutput"]
+  }
+}
