@@ -5,3 +5,5 @@ declare var App: {
   onDev: boolean;
   webEnv: string;
 };
+
+declare module 'aws-amplify-react';

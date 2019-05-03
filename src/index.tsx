@@ -6,6 +6,7 @@ import { withAuthenticator } from 'aws-amplify-react';
 import AWSAppSyncClient, { AUTH_TYPE } from 'aws-appsync';
 import { Rehydrated } from 'aws-appsync-react';
 import { ApolloProvider } from 'react-apollo';
+import { ApolloProvider as ApolloHooksProvider } from 'react-apollo-hooks';
 
 import awsconfig from 'src/aws-exports';
 import Main from './Main';
@@ -27,9 +28,11 @@ const AuthedMain = withAuthenticator(Main);
 
 ReactDOM.render(
   <ApolloProvider client={client as any}>
-    <Rehydrated>
-      <AuthedMain />
-    </Rehydrated>
+    <ApolloHooksProvider client={client as any}>
+      <Rehydrated>
+        <AuthedMain />
+      </Rehydrated>
+    </ApolloHooksProvider>
   </ApolloProvider>,
   document.getElementById('root')
 );
