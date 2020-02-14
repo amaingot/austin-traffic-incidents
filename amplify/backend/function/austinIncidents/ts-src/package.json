@@ -13,7 +13,7 @@
     "@types/moment-timezone": "^0.5.12",
     "amazon-cognito-identity-js": "^3.0.11",
     "aws-appsync": "^1.7.2",
-    "aws-lambda": "^0.1.2",
+    "aws-lambda": "^1.0.5",
     "aws-sdk": "^2.444.0",
     "axios": "^0.18.0",
     "dotenv": "^7.0.0",
