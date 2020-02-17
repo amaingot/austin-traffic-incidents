@@ -1,7 +1,7 @@
 {
-  "name": "austin-traffic-incidents",
+  "name": "worker",
   "version": "1.0.0",
-  "description": "Root for the Austin Traffic Incidents project",
+  "description": "Worker functions for Austin Traffic Incidents project",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

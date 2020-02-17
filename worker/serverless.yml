@@ -1,0 +1,47 @@
+service:
+  name: austin-traffic-incidents-worker
+  app: austin-traffic-incidents
+
+plugins:
+  - serverless-webpack
+  - serverless-stack-output
+
+provider:
+  name: aws
+  runtime: nodejs10.x
+  stage: ${opt:stage, 'dev'}
+  tracing:
+    apiGateway: true
+    lambda: true
+  logs:
+    restApi:
+      level: INFO
+      executionLogging: true
+      fullExecutionData: true
+    frameworkLambda: true
+  environment:
+    NODE_PATH: "./:/opt/node_modules"
+    ENV: ${self:provider.stage}
+
+custom:
+  secret: ${ssm:/aws/reference/secretsmanager/${self:service.app}~true}
+  webpack:
+    packager: "yarn"
+    keepOutputDirectory: true
+  output:
+    file: ../worker-env.json
+
+package:
+  individually: true
+
+functions:
+  incidents-fetcher:
+    handler: src/fetcher.handler
+    role: LambdaRole
+    events:
+      - schedule:
+          rate: rate(2 minutes)
+
+resources:
+  Resources:
+    LambdaRole: ${file(./resources/LambdaRole.yml)}

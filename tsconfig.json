@@ -1,21 +1,12 @@
 {
   "compilerOptions": {
     "allowJs": true,
-    "outDir": "./build",
-    "jsx": "react",
-    "lib": ["dom", "esnext"],
-    "module": "commonjs",
-    "baseUrl": ".",
-    "paths": {
-      "src/*": ["src/*"]
-    },
-    "target": "es2015",
-    "plugins": [
-      {
-        "name": "typescript-tslint-plugin",
-        "configFile": "./tslint.json"
-      }
-    ]
-  },
-  "exclude": ["node_modules/**", "build/**"]
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "sourceMap": true,
+    "strict": true,
+    "noUnusedParameters": true,
+    "noUnusedLocals": true
+  }
 }

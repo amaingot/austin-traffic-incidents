@@ -1,0 +1,65 @@
+service:
+  name: austin-traffic-incidents-api
+  app: austin-traffic-incidents
+
+plugins:
+  - serverless-webpack
+  - serverless-stack-output
+  - serverless-offline
+
+provider:
+  name: aws
+  runtime: nodejs10.x
+  stage: ${opt:stage, 'dev'}
+  tracing:
+    apiGateway: true
+    lambda: true
+  logs:
+    restApi:
+      level: INFO
+      executionLogging: true
+      fullExecutionData: true
+    frameworkLambda: true
+  environment:
+    AWS_XRAY_CONTEXT_MISSING: LOG_ERROR
+    WEB_DOMAIN: ${self:custom.WEB_DOMAIN}
+    NODE_PATH: "./:/opt/node_modules"
+    ENV: ${self:provider.stage}
+
+custom:
+  webpack:
+    packager: "yarn"
+    keepOutputDirectory: true
+  serverless-offline:
+    port: 3001
+  output:
+    file: ../api-env.json
+
+package:
+  individually: true
+
+functions:
+  graphql:
+    handler: lambda/graphql/index.handler
+    role: GraphqlLambdaRole
+    events:
+      - http:
+          path: graphql
+          method: post
+      - http:
+          path: graphql
+          method: get
+      - http:
+          path: graphql
+          method: options
+
+resources:
+  Resources:
+    GatewayResponseDefault4XX: ${file(./resources/GatewayResponseDefault4XX.yml)}
+    GraphqlLambdaRole: ${file(./resources/GraphqlLambdaRole.yml)}
+
+  Outputs:
+    Region:
+      Value: !Ref "AWS::Region"
+    Stage:
+      Value: ${self:provider.stage}
