@@ -1,0 +1,20 @@
+{
+  "name": "tools",
+  "version": "1.0.0",
+  "description": "Lambdas functions for Austin Traffic Incidents project",
+  "scripts": {
+    "seed": "ts-node ./src/seed.ts"
+  },
+  "author": "Alex Maingot",
+  "license": "ISC",
+  "dependencies": {
+    "@elastic/elasticsearch": "^7.6.0",
+    "csv-parse": "^4.8.5",
+    "moment": "^2.24.0"
+  },
+  "devDependencies": {
+    "@types/node": "^13.7.1",
+    "ts-node": "^8.6.2",
+    "typescript": "^3.7.5"
+  }
+}

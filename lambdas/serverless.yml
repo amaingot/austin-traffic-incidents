@@ -1,0 +1,51 @@
+service:
+  name: austin-traffic
+  app: austin-traffic
+
+plugins:
+  - serverless-webpack
+  - serverless-dotenv-plugin
+  - serverless-stack-output
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: ${opt:stage, 'dev'}
+  environment:
+    NODE_PATH: "./:/opt/node_modules"
+    ENV: ${self:provider.stage}
+    ES_URL: !GetAtt ElasticSearchDomain.DomainEndpoint
+    ES_INDEX: ${self:service.app}-${self:provider.stage}
+
+custom:
+  secret: ${ssm:/aws/reference/secretsmanager/${self:service.app}~true}
+  webpack:
+    packager: "yarn"
+    includeModules: true
+  output:
+    file: ../worker-env.json
+
+package:
+  individually: true
+
+functions:
+  fetcher:
+    handler: src/fetcher/index.handler
+    role: FetcherLambdaRole
+    memorySize: 256
+    timeout: 10
+    environment:
+      TRAFFIC_URL: ${self:custom.secret.trafficUrl}
+      TRAFFIC_APP_TOKEN: ${self:custom.secret.trafficAppToken}
+    events:
+      - schedule:
+          rate: rate(2 minutes)
+
+resources:
+  Resources:
+    FetcherLambdaRole: ${file(./resources/FetcherLambdaRole.yml)}
+    ElasticSearchDomain: ${file(./resources/ElasticSearchDomain.yml)}
+
+  Outputs:
+    UserPoolClientId:
+      Value: !GetAtt ElasticSearchDomain.DomainEndpoint

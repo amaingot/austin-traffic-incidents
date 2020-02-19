@@ -1,0 +1,34 @@
+Type: AWS::IAM::Role
+Properties:
+  RoleName: ${self:service.app}-${self:provider.stage}-FetcherLambdaRole
+  ManagedPolicyArns:
+    - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+    - arn:aws:iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole
+  AssumeRolePolicyDocument:
+    Version: "2012-10-17"
+    Statement:
+      - Effect: Allow
+        Principal:
+          Service:
+            - lambda.amazonaws.com
+        Action: sts:AssumeRole
+  Policies:
+    - PolicyName: ${self:service.app}-${self:provider.stage}-FetcherESAccess
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Action:
+              - es:*
+            Resource:
+              - { "Fn::GetAtt": ["ElasticSearchDomain", "DomainArn"] }
+              - {
+                  "Fn::Join":
+                    [
+                      "",
+                      [
+                        "Fn::GetAtt": ["ElasticSearchDomain", "DomainArn"],
+                        "/*",
+                      ],
+                    ],
+                }
