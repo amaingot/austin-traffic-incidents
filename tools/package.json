@@ -10,7 +10,7 @@
   "dependencies": {
     "@elastic/elasticsearch": "^7.6.0",
     "csv-parse": "^4.8.5",
-    "moment": "^2.24.0"
+    "moment": "^2.29.2"
   },
   "devDependencies": {
     "@types/node": "^13.7.1",
